@@ -1,5 +1,8 @@
 # GreenRec: Carbon-aware Recommendation System with Approximate Computation Reuse
 
+![Desgin overview of GreenRec](GreenRec.png)
+
+
 ## Contents
 - [1. Code Structure](#1-code-structure)
 - [2. About simulation](#2-about-simulation)
