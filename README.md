@@ -1,18 +1,26 @@
-
-# RecSys ’25 Artifacts Evaluation
-
-## GreenRec: Carbon-aware Recommendation System with Approximate Computation Reuse
+# GreenRec: Carbon-aware Recommendation System with Approximate Computation Reuse
 
 ## Contents
-- [1. Constraints](#1-constraints)
-- [2. Getting Started Instructions](#2-getting-started-instructions)
-- [3. Kernel Build](#3-kernel-build)
-- [4. NVMeVirt Build](#4-nvmevirt-build)
-- [5. Conducting Evaluation](#5-conducting-evaluation)
+- [1. Code Structure](#1-code-structure)
+- [2. About simulation](#2-about-simulation)
+- [3. Experimenatal Setup](#3-experimenatal-setup)
+- [4. Getting Started Instructions](#4-getting-started-instructions)
+- [5. Run Simulator](#5-run-simulator)
 - [6. Results](#6-results)
 
-## 1. Constraints
+## 1. Code Structure
+| **Folders** | **Description**                  |
+|---------------|------------------------------------|
+| bashrc     | Contains simulation running bash script code (simulator.sh) |
+| data       | Preprocessed carbon intensity and recommendation workload trace file |
+| result        | Simulation logs and results are stored in this folder |
+| saved            | DNN recommendation models should be placed in this folder |
+| src            | All GreenRec fucntion and simulator python codes |
 
+## 2. About simulation
+This repository provides the code and data to compare the performance of GreenRec with BASE. By simply running a bash script, you can simulate various environments (such as carbon intensity, recommendation workload traces, and accuracy constraints). Most of the implementation follows what is introduced in the paper. However, for the energy measurement module, profiled values are used for compatibility. If you want to perform actual energy measurements, you can use the functions in the `src/ENERGY_function.py` file.
+
+## 3. Experimenatal Setup
 The experimental environment is configured as follows:
 
 | **Component** | **Specification**                  |
@@ -21,9 +29,11 @@ The experimental environment is configured as follows:
 | Chipset       | Intel C621                         |
 | Memory        | DDR4 2666 MHz, 128 GB (32 GB x4)  |
 | GPU            | NVIDIA RTX 2090 |
+| Driver            | NIVIDA Driver 545.23.08 |
+| CUDA            | cuda_12.3.r12.3 |
 | OS            | Ubuntu 20.04 Server (kernel v5.16.1)|
 
-## 2. Getting Started Instructions
+## 4. Getting Started Instructions
 Pull this repository to your local environment and make saved folder inside your repository
 
 Download the DNN based recommendation model that is used in the paper and move it inside of saved folder.
@@ -34,61 +44,45 @@ install all requirements to run GreenRec.
 pip install -r requirements.txt
 ```
 
-## 3. Kernel Build
-
-Before building the kernel, ensure the following packages are installed:
+## 5. Run Simulator
+Running the `bashrc/simulator.sh` script starts the simulation.
+Cation: you should execute `simulater.sh` inside the `bashrc` folder since our repository use relative path in simulator code.
 ```bash
-apt-get update
-apt-get install build-essential libncurses5 libncurses5-dev bin86 kernel-package libssl-dev bison flex libelf-dev dwarves
-```
-Configure the kernel:
-```bash
-cd kernel
-make olddefconfig
-```
-To modify the `.config` file for building, replace the values of CONFIG_SYSTEM_TRUSTED_KEYS and CONFIG_SYSTEM_REVOCATION_KEYS with an empty string (""). This can be found near line 10477.
-
-```bash
-CONFIG_SYSTEM_TRUSTED_KEYS=""
-CONFIG_SYSTEM_REVOCATION_KEYS=""
+bash ./simulator.sh arguments
 ```
 
-Build the kernel:
-```bash
-make -j$(nproc) LOCALVERSION=
-sudo make INSTALL_MOD_STRIP=1 modules_install  
-make install
-```
-Reboot and boot into the newly built kernel.
+The `simulator.sh` script requires five arguments, each of which has the following meaning:
+| **Argument** | **Description**                  |
+|---------------|------------------------------------|
+| 1. Simulation Mode     | 0: BASE 1: GreenRec |
+| 2. Recommendation Workload       | 0: MovieLens 1: Twitch |
+| 3. Carbon Intensity    | 0: NESO Increase 1: NESO Decrease 2: NESO Stable |
+| 4. Accuracy Constraint    | 0: Const. High 1: Const. Mid 2: Const. Low |
+| 5. Refine parameter    | 0 ~ 320 |
 
-## 4. NVMeVirt Build
-
-Verify the kernel version:
+For example, if you want to simulate MovieLens workload with GreenRec on NESO Decrease, Mid Constraint and refine parameter 40, you should complete your running code like this.
 ```bash
-uname -r
-```
-Once "5.15.0DA_515" is confirmed, proceed as follows:
-```bash
-cd nvmevirt
-./build.sh
-```
-After the build, `nvmev_on.ko` and `nvmev_off.ko` will be copied to the evaluation directory.
-
-## 5. Conducting Evaluation
-
-Reserve memory for the emulated NVMe device's storage by modifying `/etc/default/grub`:
-```bash
-GRUB_CMDLINE_LINUX="memmap=128G\\$256G intremap=off”
-```
-This reserves 128 GiB of physical memory starting at the 256 GiB offset. Adjust these values based on your physical memory size and storage capacity.
-
-Update grub and reboot:
-```bash
-sudo update-grub
-sudo reboot
+bash ./simulator.sh 1 0 1 1 40
 ```
 
-[todo]
+By this way, simulator code starts running and writes logs and results in `result` folder
 
 ## 6. Results
-*Details about evaluating and interpreting results.*
+If all simulations terminates, in log file, you can see final result.
+
+```bash
+================== simulation result ====================
+TOTAL CARBON: 11.157300335082537
+OPTIMIZE CARBON: 0.04632622739848702
+SEARCH CARBON: 0.872475968064611
+EXTRACT CARBON: 2.0084345483111683
+INSERT CARBON: 0.036332225806314594
+SAVE CARBON: 0.00011216266840610367
+INFERENCE CARBON: 8.193619202833782
+
+
+CACHE HIT RATE: 0.9345908122908427
+HIT10 : 0.41375114085792514
+Accuracy Constraint Guarantee: 0.9984820057375001
+```
+According to the result, GreenRec can operate with low carbon footprint while maintaining considerable accuracy.
