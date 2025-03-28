@@ -89,3 +89,12 @@ HIT10 : 0.41375114085792514
 Accuracy Constraint Guarantee: 0.9984820057375001
 ```
 According to the result, GreenRec can operate with low carbon footprint while maintaining considerable accuracy.
+
+
+##7. Appendix
+Raw Datasets and Vanila DNN recommendation model code that are used in this simulation is assesible in these links
+| **asset** | **Link**                  |
+|---------------|------------------------------------|
+| MovieLens-1M     | https://grouplens.org/datasets/movielens/ |
+| Twitch-100K  | https://github.com/JRappaz/liverec?tab=readme-ov-file |
+| Bert4Rec  | https://github.com/FeiSun/BERT4Rec |
