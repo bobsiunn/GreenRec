@@ -10,6 +10,7 @@
 - [4. Getting Started Instructions](#4-getting-started-instructions)
 - [5. Run Simulator](#5-run-simulator)
 - [6. Results](#6-results)
+- [7. Appendix](#7-appendix)
 
 ## 1. Code Structure
 | **Folders** | **Description**                  |
@@ -91,7 +92,7 @@ Accuracy Constraint Guarantee: 0.9984820057375001
 According to the result, GreenRec can operate with low carbon footprint while maintaining considerable accuracy.
 
 
-##7. Appendix
+## 7. Appendix
 Raw Datasets and Vanila DNN recommendation model code that are used in this simulation is assesible in these links
 | **asset** | **Link**                  |
 |---------------|------------------------------------|
