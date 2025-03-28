@@ -17,14 +17,11 @@ The experimental environment is configured as follows:
 
 | **Component** | **Specification**                  |
 |---------------|------------------------------------|
-| Processor     | Intel Xeon Gold 6138 2.0 GHz, 20-Core |
+| Processor     | Intel Xeon Gold 5218 2.3 GHz, 64-Core |
 | Chipset       | Intel C621                         |
-| Memory        | DDR4 2666 MHz, 512 GB (32 GB x16)  |
-| OS            | Ubuntu 20.04 Server (kernel v5.15.0)|
-
-**Note:** NVMeVirt operates in DRAM and is sensitive to performance. It is recommended to use an environment with at least 128 GB of free space in a single NUMA node. As NVMeVirt requires a modified kernel, please follow the steps in this document sequentially.
-
-This guide is based on a clean installation of Ubuntu 20.04 server.
+| Memory        | DDR4 2666 MHz, 128 GB (32 GB x4)  |
+| GPU            | NVIDIA RTX 2090 |
+| OS            | Ubuntu 20.04 Server (kernel v5.16.1)|
 
 ## 2. Getting Started Instructions
 
