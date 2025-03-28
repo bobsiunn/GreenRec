@@ -41,7 +41,6 @@ The experimental environment is configured as follows:
 Pull this repository to your local environment and make saved folder inside your repository
 
 Download the DNN based recommendation model that is used in the paper and move it inside of saved folder.
-https://drive.google.com/drive/folders/1TeGgAXLUwmS60wTsIDwI7ivrDH7OukeI?usp=sharing
 
 install all requirements to run GreenRec.
 ```bash
