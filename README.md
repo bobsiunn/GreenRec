@@ -24,12 +24,13 @@ The experimental environment is configured as follows:
 | OS            | Ubuntu 20.04 Server (kernel v5.16.1)|
 
 ## 2. Getting Started Instructions
+Download the DNN based recommendation model that is used in the paper and move it inside of saved folder.
+https://drive.google.com/drive/folders/1TeGgAXLUwmS60wTsIDwI7ivrDH7OukeI?usp=sharing
 
-Retrieve the necessary code from GitHub by executing the script below:
+install all requirements to run GreenRec.
 ```bash
-./cloneall.sh
+pip install -r requirements.txt
 ```
-Upon completion, the modified kernel and NVMeVirt will be downloaded into their respective directories.
 
 ## 3. Kernel Build
 
