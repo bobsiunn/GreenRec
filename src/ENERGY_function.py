@@ -39,7 +39,7 @@ class energyModel:
         #return: latency, Package energy, DRAM energy, GPU energy
 
         if(option == 0):
-            latency, package_E, dram_E, gpu_E = 3.93688624, 0.118618823612245, 0.000165424571428571, 0
+            latency, package_E, dram_E, gpu_E = 3.93688624, 2.834602605, 0.003822096, 0
         elif(option == 1):
             latency, package_E, dram_E, gpu_E = 0.000264072, 0.003745113, 1.88455E-05, 0.023468475
         elif(option == 2):

@@ -293,6 +293,7 @@ def simulation(args):
 
     print(f"request trace: {trace_op} (0: MovieLens, 1: Twitch")
     print(f"simulation mode: {mode} (0: BASE, 1: GreenRec)")
+    print(f"accuracy constraint: {args.const}")
     print(f"request simulation: {rq_start_time} ~ {rq_end_time}")
     print(f"carbon intensity simulation: {ci_start_time} ~ {ci_end_time}")
     print("==========================================\n\n")
@@ -360,4 +361,4 @@ def simulation(args):
 
     print(f"CACHE HIT RATE: {HIT_SUM / (HIT_SUM + MISS_SUM)}")
     print(f"HIT10 : {HIT10_SUM / REQUEST_CNT}")
-    print(f"Accuracy Constraint Guarantee: {args.const / (HIT10_SUM / REQUEST_CNT)}")
+    print(f"Accuracy Constraint Guarantee: {(HIT10_SUM / REQUEST_CNT) / args.const}")
