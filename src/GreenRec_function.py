@@ -22,17 +22,17 @@ class GreenRecRecomender():
                 self.P = cp.dot(cp.dot(self.F, self.P), self.F.T) + self.Q
             
             def update(self, measurement):
-                measurement = cp.asarray(measurement, dtype=cp.float32)  # GPU로 옮기기
-                y = measurement - cp.dot(self.H, self.preferV)  # 측정 잔차
-                S = cp.dot(self.H, cp.dot(self.P, self.H.T)) + self.R  # 잔차 공분산
-                K = cp.dot(cp.dot(self.P, self.H.T), cp.linalg.inv(S))  # 칼만 이득
+                measurement = cp.asarray(measurement, dtype=cp.float32)  
+                y = measurement - cp.dot(self.H, self.preferV) 
+                S = cp.dot(self.H, cp.dot(self.P, self.H.T)) + self.R  
+                K = cp.dot(cp.dot(self.P, self.H.T), cp.linalg.inv(S))  
 
                 self.preferV = self.preferV + cp.dot(K, y)
                 I = cp.eye(self.K, dtype=cp.float32)
                 self.P = cp.dot((I - cp.dot(K, self.H)), self.P)
 
             def get_preference(self, vecTS):
-                vecTS = cp.asarray(vecTS, dtype=cp.float32)  # GPU로 옮기기
+                vecTS = cp.asarray(vecTS, dtype=cp.float32)  
                 T = vecTS.shape[0]
 
                 if self.num_update:
@@ -40,12 +40,12 @@ class GreenRecRecomender():
                     self.update(vecTS[-1])
                 else:
                     for t in range(T):
-                        measurement = vecTS[t]  # 현재 시점의 임베딩 벡터
+                        measurement = vecTS[t]  
                         self.predict()
                         self.update(measurement)
                 
                 self.num_update += 1
-                return cp.asnumpy(self.preferV) # CPU로 복사하여 반환
+                return cp.asnumpy(self.preferV) 
             
         def __init__(self, id):
             self.id = id
@@ -78,7 +78,7 @@ class GreenRecRecomender():
 
 
     def predictPreference(self, uid, vecTS):
-        preferV = self.userDB[uid].kf.get_preference(vecTS) #preferV 업데이트
+        preferV = self.userDB[uid].kf.get_preference(vecTS) 
 
         return preferV
 
@@ -107,9 +107,6 @@ class GreenRecRecomender():
     #preference vector based aware approx. matching
     ###############################################################
     def cacheLookup_preferApprox(self, uid, log, prefer_emb):
-        #1. CHR 범위를 구함
-        #2. 현재 CHR이 범위 안에 있는지 검사 (범위 밖이라면 임계값 제어)
-        #3. 캐시 검색 후 hit/miss
 
         def getCHRTolerance(time, init_range=0.5, epsilon=0.001, alpha=0.1):
             sigmoid_tolerance = epsilon + (init_range - epsilon) / (1 + np.exp(alpha * (time - self.nowSessionRR / 2)))
@@ -208,7 +205,6 @@ class GreenRecPlanner():
 
         self.opt_theta = None
     
-    # HIT10 및 CHR 함수 정의
     def hit10_function(self, theta_base):
         if(self.trace_op):
             return 0.4747 * (theta_base ** 2) -0.1632 * (theta_base) + 0.3885 #movieLens
@@ -274,7 +270,6 @@ class GreenRecPlanner():
                               constraints=[con], 
                               options={'disp': False})
 
-            # 결과 확인
             if result.success:
                 optimal_theta = result.x
                 self.opt_theta = list(optimal_theta)

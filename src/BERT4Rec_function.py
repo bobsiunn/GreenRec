@@ -30,13 +30,13 @@ config = {
 
     'max_len' : 10,
     'hidden_units' : 64, # Embedding size
-    'num_heads' : 4, # Multi-head layer 의 수 (병렬 처리) movieLens: 4 (2)
-    'num_layers': 4, # block의 개수 (encoder layer의 개수) movieLens: 4 (2)
-    'dropout_rate' : 0.2, # dropout 비율 movieLens: 0.2 (0.5)
-    'lr' : 0.001, # movieLens: 0.001 (0.004)
-    'batch_size' : 200, # movieLens: 200
-    'num_epochs' : 100, # movieLens: 100
-    'num_workers' : 2, # movieLens: 2
+    'num_heads' : 4, 
+    'num_layers': 4, 
+    'dropout_rate' : 0.2, 
+    'lr' : 0.001, 
+    'batch_size' : 200, 
+    'num_epochs' : 100, 
+    'num_workers' : 2, 
     'mask_prob' : 0.15, # for cloze task,  movieLens: 0.15 (0.2)
     'device' : torch.device(f"cuda" if torch.cuda.is_available() else "cpu"),
 }
@@ -115,7 +115,6 @@ class BERTRecDataSet(Dataset):
         self._all_items = set([i for i in range(1, self.num_item + 1)])
 
     def __len__(self):
-        # 총 user의 수 = 학습에 사용할 sequence의 수
         return self.num_seq
 
     def __getitem__(self, idx): 

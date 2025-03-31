@@ -21,7 +21,7 @@ class recTrace:
     class user:
         def  __init__(self, uid, index):
             self.UID = uid
-            self.index = index #user의 request item 위치
+            self.index = index 
 
             self.history = []
             self.cacheHit = 0 #hit count
@@ -52,7 +52,6 @@ class recTrace:
         min_time = 99999999999 
         max_time = 0
 
-        #user 당 item list 추출
         file = f'../data/{RQfilename}.txt'
 
         for line in open(file, encoding='utf-8').readlines()[1:]:
@@ -67,7 +66,6 @@ class recTrace:
             if(self.rq_start_time <= TIME <= self.rq_end_time):
                 self.targetTrace[UID].append(IID)
         
-        #request trace 생성
         SEQ = 10
 
         for line in open(file, encoding='utf-8').readlines()[1:]:
@@ -81,14 +79,12 @@ class recTrace:
                 min_time = min(min_time, TIME)
                 max_time = max(max_time, TIME)
 
-                #simulation 범위 내 user 수 추가
                 if(UID not in self.userTrace.keys()):
                     if (len(self.historyTrace[UID]) > SEQ):
                         self.userTrace[UID] = self.user(UID, 0)
                     else:
                         continue
                 
-                #time에 해당하는 request 추가
                 uid_index = self.userTrace[UID].index
 
                 if(uid_index+SEQ < len(self.historyTrace[UID])-1):
@@ -132,7 +128,6 @@ class recTrace:
         self.realworldCarbonMonitor(CIfilename)
 
 
-    #해당 시점에 요청된 한 user 수집
     def requestCall(self, timestamp):
         request_rate = 0
         requst_info = []
@@ -140,7 +135,7 @@ class recTrace:
         for RQ in self.requestTrace[timestamp]: 
             requst_info.append((RQ.UID, RQ.LOG, RQ.ANSWER))
         
-            RQ.FLAG = 1 #처리될 request이므로 flag on
+            RQ.FLAG = 1 
             request_rate += 1
 
         return request_rate, requst_info
