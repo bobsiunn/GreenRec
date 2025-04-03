@@ -1,12 +1,12 @@
 # GreenRec: Carbon-aware Recommendation System with Approximate Computation Reuse
 
-![Desgin overview of GreenRec](GreenRec.png)
+![Design overview of GreenRec](GreenRec.png)
 
 
 ## Contents
 - [1. Code Structure](#1-code-structure)
 - [2. About simulation](#2-about-simulation)
-- [3. Experimenatal Setup](#3-experimenatal-setup)
+- [3. Experimental Setup](#3-Experimental-setup)
 - [4. Getting Started Instructions](#4-getting-started-instructions)
 - [5. Run Simulator](#5-run-simulator)
 - [6. Results](#6-results)
@@ -19,12 +19,12 @@
 | data       | Preprocessed carbon intensity and recommendation workload trace file |
 | result        | Simulation logs and results are stored in this folder |
 | saved            | DNN recommendation models should be placed in this folder |
-| src            | All GreenRec fucntion and simulator python codes |
+| src            | All GreenRec function and simulator Python codes |
 
 ## 2. About simulation
 This repository provides the code and data to compare the performance of GreenRec with BASE. By simply running a bash script, you can simulate various environments (such as carbon intensity, recommendation workload traces, and accuracy constraints). Most of the implementation follows what is introduced in the paper. However, for the energy measurement module, profiled values are used for compatibility. If you want to perform actual energy measurements, you can use the functions in the `src/ENERGY_function.py` file.
 
-## 3. Experimenatal Setup
+## 3. Experimental Setup
 The experimental environment is configured as follows:
 
 | **Component** | **Specification**                  |
@@ -33,12 +33,12 @@ The experimental environment is configured as follows:
 | Chipset       | Intel C621                         |
 | Memory        | DDR4 2666 MHz, 128 GB (32 GB x4)  |
 | GPU            | NVIDIA RTX 2090 |
-| Driver            | NIVIDA Driver 545.23.08 |
+| Driver            | NVIDIA Driver 545.23.08 |
 | CUDA            | cuda_12.3.r12.3 |
 | OS            | Ubuntu 20.04 Server (kernel v5.16.1)|
 
 ## 4. Getting Started Instructions
-For compatability, there is a Dockerfile that can imitate our evalutation setup.
+For compatibility, there is a Dockerfile that can imitate our evaluation setup.
 
 First, build Docker image.
 ```bash
@@ -58,7 +58,7 @@ pip install -r requirements.txt
 
 ## 5. Run Simulator
 Running the `bashrc/simulator.sh` script starts the simulation.
-Cation: you should execute `simulater.sh` inside the `bashrc` folder since our repository use relative path in simulator code.
+Caution: you should execute `simulator.sh` inside the `bashrc` folder since our repository uses relative paths in simulator code.
 ```bash
 bash ./simulator.sh arguments
 ```
@@ -101,7 +101,7 @@ According to the result, GreenRec can operate with low carbon footprint while ma
 
 
 ## 7. Appendix
-Raw Datasets and Vanila DNN recommendation model code that are used in this simulation is assesible in these links
+Raw Datasets and vanilla DNN recommendation model code used in this simulation is accessible in these links
 | **asset** | **Link**                  |
 |---------------|------------------------------------|
 | MovieLens-1M     | https://grouplens.org/datasets/movielens/ |
