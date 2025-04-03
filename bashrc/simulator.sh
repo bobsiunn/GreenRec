@@ -1,5 +1,5 @@
 #!/bin/bash 
-HOME="../"
+HOME=".."
 SRC="$HOME/src"
 RESULT="$HOME/result"
 EXEC_PATH="$SRC/run.py"
