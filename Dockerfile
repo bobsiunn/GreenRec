@@ -15,10 +15,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -yq build-essential zlib1g-dev li
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
-RUN git config --global user.name "bob.siunn"
-RUN git config --global user.email "psh000701@gmail.com"
-RUN git config --global credential.helper store
-
 RUN echo "alias ll='ls --color=auto -alF'" >> ~/.bashrc
 RUN echo "PS1='\[\e[01;32m\]\u\[\e[01;37m\]@\[\e[01;33m\]\H\[\e[01;37m\]:\[\e[01;32m\]\w\[\e[01;37m\]\$\[\033[0;37m\]'" >> ~/.bashrc
 RUN echo "if [ -x /usr/bin/dircolors ]; then" >> ~/.bashrc

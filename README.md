@@ -38,7 +38,20 @@ The experimental environment is configured as follows:
 | OS            | Ubuntu 20.04 Server (kernel v5.16.1)|
 
 ## 4. Getting Started Instructions
-Pull this repository to your local environment and install all requirements to run GreenRec.
+For compatability, there is a Dockerfile that can imitate our evalutation setup.
+
+First, build Docker image.
+```bash
+docker build -t dockerID/greenrec:tag
+```
+
+Second, run Docker file and place GreenRec repository folder inside the docker container.
+```bash
+docker run -dit --privileged --name GreenRec --gpus all dockerID/greenrec:tag
+docker cp GreenRec:path GreenRec_repository_folder
+```
+
+Third, install all requirements to run GreenRec.
 ```bash
 pip install -r requirements.txt
 ```
